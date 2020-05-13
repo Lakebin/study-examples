@@ -1,6 +1,6 @@
-package com.lakebin.study.mq.rabbit.sample;
+package com.lakebin.demo.mq.rabbit.sample;
 
-import com.lakebin.study.mq.rabbit.util.RabbitConnectionUtil;
+import com.lakebin.demo.mq.rabbit.util.RabbitConnectionUtil;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import org.slf4j.Logger;

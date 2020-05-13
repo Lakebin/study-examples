@@ -1,4 +1,4 @@
-package com.lakebin.study.mq.rabbit.util;
+package com.lakebin.demo.mq.rabbit.util;
 
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
@@ -20,7 +20,7 @@ public class RabbitConnectionUtil {
     public static Connection getConnection() throws IOException, TimeoutException {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("192.168.1.210");
-        factory.setVirtualHost("/lakebin");
+        factory.setVirtualHost("testhost");
         factory.setUsername("admin");
         factory.setPassword("123456");
         //获取连接
