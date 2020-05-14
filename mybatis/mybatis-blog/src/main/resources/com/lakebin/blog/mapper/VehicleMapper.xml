@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lakebin.blog.mapper.VehicleMapper">
+  <resultMap id="BaseResultMap" type="com.lakebin.blog.entity.Vehicle">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="vin" jdbcType="VARCHAR" property="vin" />
+    <result column="year" jdbcType="DATE" property="year" />
+    <result column="make" jdbcType="VARCHAR" property="make" />
+    <result column="model" jdbcType="VARCHAR" property="model" />
+    <result column="color" jdbcType="VARCHAR" property="color" />
+    <result column="vehicle_type" jdbcType="INTEGER" property="vehicleType" />
+    <result column="door_count" jdbcType="INTEGER" property="doorCount" />
+    <result column="all_wheel_drive" jdbcType="BIT" property="allWheelDrive" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, vin, year, make, model, color, vehicle_type, door_count, all_wheel_drive
+  </sql>
+  <select id="selectByExample" parameterType="com.lakebin.blog.entity.VehicleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from vehicle
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from vehicle
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from vehicle
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lakebin.blog.entity.VehicleExample">
+    delete from vehicle
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lakebin.blog.entity.Vehicle">
+    insert into vehicle (id, vin, year, make, 
+      model, color, vehicle_type, 
+      door_count, all_wheel_drive)
+    values (#{id,jdbcType=INTEGER}, #{vin,jdbcType=VARCHAR}, #{year,jdbcType=DATE}, #{make,jdbcType=VARCHAR}, 
+      #{model,jdbcType=VARCHAR}, #{color,jdbcType=VARCHAR}, #{vehicleType,jdbcType=INTEGER}, 
+      #{doorCount,jdbcType=INTEGER}, #{allWheelDrive,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lakebin.blog.entity.Vehicle">
+    insert into vehicle
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="vin != null">
+        vin,
+      </if>
+      <if test="year != null">
+        year,
+      </if>
+      <if test="make != null">
+        make,
+      </if>
+      <if test="model != null">
+        model,
+      </if>
+      <if test="color != null">
+        color,
+      </if>
+      <if test="vehicleType != null">
+        vehicle_type,
+      </if>
+      <if test="doorCount != null">
+        door_count,
+      </if>
+      <if test="allWheelDrive != null">
+        all_wheel_drive,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="vin != null">
+        #{vin,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null">
+        #{year,jdbcType=DATE},
+      </if>
+      <if test="make != null">
+        #{make,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null">
+        #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="color != null">
+        #{color,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleType != null">
+        #{vehicleType,jdbcType=INTEGER},
+      </if>
+      <if test="doorCount != null">
+        #{doorCount,jdbcType=INTEGER},
+      </if>
+      <if test="allWheelDrive != null">
+        #{allWheelDrive,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lakebin.blog.entity.VehicleExample" resultType="java.lang.Long">
+    select count(*) from vehicle
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update vehicle
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.vin != null">
+        vin = #{record.vin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.year != null">
+        year = #{record.year,jdbcType=DATE},
+      </if>
+      <if test="record.make != null">
+        make = #{record.make,jdbcType=VARCHAR},
+      </if>
+      <if test="record.model != null">
+        model = #{record.model,jdbcType=VARCHAR},
+      </if>
+      <if test="record.color != null">
+        color = #{record.color,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vehicleType != null">
+        vehicle_type = #{record.vehicleType,jdbcType=INTEGER},
+      </if>
+      <if test="record.doorCount != null">
+        door_count = #{record.doorCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.allWheelDrive != null">
+        all_wheel_drive = #{record.allWheelDrive,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update vehicle
+    set id = #{record.id,jdbcType=INTEGER},
+      vin = #{record.vin,jdbcType=VARCHAR},
+      year = #{record.year,jdbcType=DATE},
+      make = #{record.make,jdbcType=VARCHAR},
+      model = #{record.model,jdbcType=VARCHAR},
+      color = #{record.color,jdbcType=VARCHAR},
+      vehicle_type = #{record.vehicleType,jdbcType=INTEGER},
+      door_count = #{record.doorCount,jdbcType=INTEGER},
+      all_wheel_drive = #{record.allWheelDrive,jdbcType=BIT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lakebin.blog.entity.Vehicle">
+    update vehicle
+    <set>
+      <if test="vin != null">
+        vin = #{vin,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null">
+        year = #{year,jdbcType=DATE},
+      </if>
+      <if test="make != null">
+        make = #{make,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null">
+        model = #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="color != null">
+        color = #{color,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleType != null">
+        vehicle_type = #{vehicleType,jdbcType=INTEGER},
+      </if>
+      <if test="doorCount != null">
+        door_count = #{doorCount,jdbcType=INTEGER},
+      </if>
+      <if test="allWheelDrive != null">
+        all_wheel_drive = #{allWheelDrive,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lakebin.blog.entity.Vehicle">
+    update vehicle
+    set vin = #{vin,jdbcType=VARCHAR},
+      year = #{year,jdbcType=DATE},
+      make = #{make,jdbcType=VARCHAR},
+      model = #{model,jdbcType=VARCHAR},
+      color = #{color,jdbcType=VARCHAR},
+      vehicle_type = #{vehicleType,jdbcType=INTEGER},
+      door_count = #{doorCount,jdbcType=INTEGER},
+      all_wheel_drive = #{allWheelDrive,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
